@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: francis and winnie
+ * User: Milo
  * Date: 2016/11/12
  * Time: 20:39
  */
@@ -15,6 +15,7 @@ class MiloCore
     private static function _init()
     {
         DEBUG?ini_set('display_errors','On'):ini_set('display_errors','Off');
+        date_default_timezone_set('Asia/Chongqing');
         $GLOBALS['StartTime'] = microtime(TRUE);
         define('MEMORY_LIMIT_ON',function_exists('memory_get_usage'));
         require CORE_PATH.'Common/Function.php';
@@ -43,7 +44,7 @@ class MiloCore
         $control=$route->getControl();
         $action=$route->getAction();
         $CtrlFile=APP_PATH.'controller/'.$control.'Controller'.EXT;
-        $CtrlClass=APP_NAME.'\Controller\\'.$control.'Controller';
+        $CtrlClass=trim(APP_PATH,DIR.'/').'\Controller\\'.$control.'Controller';
         if (is_file($CtrlFile))
         {
             require_once $CtrlFile;
@@ -79,7 +80,6 @@ class MiloCore
 
         }
     }
-
     private static function _load(string $class) : bool
     {
         if(isset($_classMap[$class]))

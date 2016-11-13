@@ -6,10 +6,16 @@
  * Time: 23:10
  */
 namespace Home\Controller;
-class IndexController
+use Core\libs\BaseController;
+use Core\libs\Log;
+
+class IndexController extends BaseController
 {
     public function index()
     {
-        echo 'OK';
+        $arr=array('a'=>'123','b'=>'234');
+        $this->assign('data','hello view');
+        $this->assign('arr',$arr);
+        $this->display('index.html');
     }
 }

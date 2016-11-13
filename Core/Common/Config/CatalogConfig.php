@@ -8,7 +8,7 @@
 defined('CORE_PATH') or exit();
 return array(
     'MODEL'=>'Model',
-    'VIEW'=>'View',
+    'VIEW'=>'Views',
     'CONTROLLER'=>'Controller',
     'COMMON'=>'Common',
     'RUNNING'=>'Running'
