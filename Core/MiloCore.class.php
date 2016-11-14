@@ -44,7 +44,7 @@ class MiloCore
         $control=$route->getControl();
         $action=$route->getAction();
         $CtrlFile=APP_PATH.'controller/'.$control.'Controller'.EXT;
-        $CtrlClass=trim(APP_PATH,DIR.'/').'\Controller\\'.$control.'Controller';
+        $CtrlClass=trim(trim(APP_PATH,DIR),'/').'\Controller\\'.$control.'Controller';
         if (is_file($CtrlFile))
         {
             require_once $CtrlFile;
