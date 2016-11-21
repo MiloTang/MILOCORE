@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title><?php echo $data; ?></title>
 </head>
 <body>
-<?php echo $data; ?>
+<a href="<?php echo $data; ?>">chou</a>
 <?php foreach($arr as $key=>$value)
     {
            echo '<li>'.$value.'</li>';

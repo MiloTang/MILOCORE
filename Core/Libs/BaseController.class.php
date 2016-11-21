@@ -31,12 +31,69 @@ class BaseController
             PrintFm($view.' 模板不存在');
         }
     }
-    public function filterParams(array $params)
+    public function params():array
     {
+        $params=array();
+        if($_SERVER['REQUEST_METHOD']=='GET')
+        {
+            $route=Route::getInstance();
+            $params=$route->getParams();
+
+        }
+        elseif($_SERVER['REQUEST_METHOD']=='POST')
+        {
+            $params=$_POST;
+        }
+        if(MAGIC_GPC)
+        {
+            return $this->filterGPCParams($params);
+        }
+        else
+        {
+            return $this->filterParams($params);
+        }
 
     }
-    public function filterParam(string $param)
+    public function filterParams(array $params):array
     {
+        foreach ($params as $key=>$value)
+        {
+            if(is_string($value))
+            {
+                $params[$key]=addslashes(htmlentities($value));
+
+            }
+            elseif(is_array($value))
+            {
+                $params[$key]=$this->filterParams($value);
+            }
+        }
+        return $params;
+    }
+    public function filterGPCParams(array $params):array
+    {
+        foreach ($params as $key=>$value)
+        {
+            if(is_string($value))
+            {
+                $params[$key]=htmlentities($value);
+
+            }
+            elseif(is_array($value))
+            {
+                $params[$key]=$this->filterParams($value);
+            }
+        }
+        return $params;
+    }
+    public function secret(string $url):string
+    {
+        return base64_encode(urlencode($url));
 
     }
+    public function encrypt($password)
+    {
+        return md5(sha1(crypt($password,'MiloCore')));
+    }
+    
 }

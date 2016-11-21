@@ -43,6 +43,7 @@ class MiloCore
         $route = Route::getInstance();
         $control=$route->getControl();
         $action=$route->getAction();
+        $params=$route->getParams();
         $CtrlFile=APP_PATH.'controller/'.$control.'Controller'.EXT;
         $CtrlClass=trim(trim(APP_PATH,DIR),'/').'\Controller\\'.$control.'Controller';
         if (is_file($CtrlFile))
@@ -114,6 +115,7 @@ class MiloCore
         defined('EXTEND') or define('PUBLIC',DIR.'Public');
         define('EXT','.class.php');
         define('VERSION','1.0.0');
+        define('MAGIC_GPC',ini_get('magic_quotes_gpc')?true:false);
     }
     
 }

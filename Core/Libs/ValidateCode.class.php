@@ -5,7 +5,7 @@
  * Date: 11/4/2016
  * Time: 4:03 PM
  */
-namespace Core\lib;
+namespace Core\Libs;
 defined('CORE_PATH') or exit();
 class ValidateCode {
     private $code;       //验证码
@@ -18,7 +18,7 @@ class ValidateCode {
     private static $_instance;
     private function __construct()
     {
-        $this->font ='./Core/Lib/font/ALGER.TTF';
+        $this->font ='./Core/Libs/font/ALGER.TTF';
     }
     public static  function getInstance()
     {
@@ -96,7 +96,8 @@ class ValidateCode {
         }
 
     }
-    public function getCode() {
+    public function getCode()
+    {
         return strtolower($this->code);
     }
 

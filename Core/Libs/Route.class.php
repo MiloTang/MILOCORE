@@ -28,7 +28,8 @@ class Route
     {
         if(isset($_SERVER['REQUEST_URI'])&&$_SERVER['REQUEST_URI'] != '/')
         {
-            $uri=$_SERVER['REQUEST_URI'];
+
+            $uri=$this->unSecret(trim($_SERVER['REQUEST_URI'],'/'));
             $uriArr=explode('/',trim($uri,'/'));
             if(isset($uriArr[0])&&$uriArr[0]!='')
             {
@@ -65,17 +66,21 @@ class Route
         }
 
     }
-    public function getControl()
+    public function getControl():string
     {
         return $this->control;
     }
-    public function getAction()
+    public function getAction():string
     {
         return $this->action;
     }
-    public function getParams()
+    public function getParams():array
     {
         return $this->params;
+    }
+    private function unSecret(string $url):string
+    {
+        return urldecode(base64_decode($url));
     }
    
 }
