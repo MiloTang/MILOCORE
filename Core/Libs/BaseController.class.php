@@ -18,18 +18,26 @@ class BaseController
     {
         $this->data[$name]=$data;
     }
-    public function display($view)
+    public function display(string $view)
     {
-        extract($this->data);
-        $file=APP_PATH.'Views/Templates/'.$view;
-        if(file_exists($file))
+        if (true)
         {
-           require_once $file;
+            $this->cacheHtml($view);
         }
         else
         {
-            PrintFm($view.' 模板不存在');
+            extract($this->data);
+            $file=APP_PATH.'Views/Templates/'.$view;
+            if(file_exists($file))
+            {
+                require_once $file;
+            }
+            else
+            {
+                PrintFm($view.' 模板不存在');
+            }
         }
+
     }
     public function params():array
     {
@@ -85,5 +93,49 @@ class BaseController
             }
         }
         return $params;
+    }
+    private function cacheHtml(string $view)
+    {
+        $cacheFile=APP_PATH.'Views/Cache/'.$view;
+        extract($this->data);
+        $file=APP_PATH.'Views/Templates/'.$view;
+        if (is_file($cacheFile))
+        {
+            $createTime=filectime($cacheFile);
+            if ((microtime()-$createTime)>5000)
+            {
+                if(file_exists($file))
+                {
+                    ob_start();
+                    $contents=require_once $file;
+                    file_put_contents($cacheFile,$contents);
+                    ob_end_flush();
+                }
+                else
+                {
+                    GetError($view.' 模板不存在');
+                }
+            }
+            else
+            {
+                require_once $cacheFile;
+            }
+        }
+        else
+        {
+            if(file_exists($file))
+            {
+                ob_start();
+                require_once $file;
+                $contents = ob_get_contents();
+                file_put_contents($cacheFile,$contents);
+                ob_end_flush();
+
+            }
+            else
+            {
+                GetError($view.' 模板不存在');
+            }
+        }
     }
 }
