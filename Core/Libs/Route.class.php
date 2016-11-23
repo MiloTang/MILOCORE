@@ -28,8 +28,7 @@ class Route
     {
         if(isset($_SERVER['REQUEST_URI'])&&$_SERVER['REQUEST_URI'] != '/')
         {
-
-            $uri=$this->unSecret(trim($_SERVER['REQUEST_URI'],'/'));
+            $uri=OutUrl(trim($_SERVER['REQUEST_URI'],'/'));
             $uriArr=explode('/',trim($uri,'/'));
             if(isset($uriArr[0])&&$uriArr[0]!='')
             {
@@ -78,9 +77,6 @@ class Route
     {
         return $this->params;
     }
-    private function unSecret(string $url):string
-    {
-        return urldecode(base64_decode($url));
-    }
+   
    
 }

@@ -54,7 +54,7 @@ class BaseController
         }
 
     }
-    public function filterParams(array $params):array
+    private function filterParams(array $params):array
     {
         foreach ($params as $key=>$value)
         {
@@ -70,7 +70,7 @@ class BaseController
         }
         return $params;
     }
-    public function filterGPCParams(array $params):array
+    private function filterGPCParams(array $params):array
     {
         foreach ($params as $key=>$value)
         {
@@ -86,14 +86,4 @@ class BaseController
         }
         return $params;
     }
-    public function secret(string $url):string
-    {
-        return base64_encode(urlencode($url));
-
-    }
-    public function encrypt($password)
-    {
-        return md5(sha1(crypt($password,'MiloCore')));
-    }
-    
 }

@@ -7,6 +7,7 @@
  */
 
 namespace Core;
+defined('CORE_PATH') or exit();
 use Core\libs\Route;
 
 class MiloCore
@@ -14,11 +15,12 @@ class MiloCore
     private static $_classMap= array();
     private static function _init()
     {
+        self::_define();
         DEBUG?ini_set('display_errors','On'):ini_set('display_errors','Off');
         date_default_timezone_set('Asia/Chongqing');
         $GLOBALS['StartTime'] = microtime(TRUE);
         define('MEMORY_LIMIT_ON',function_exists('memory_get_usage'));
-        require CORE_PATH.'Common/Function.php';
+        require CORE_PATH . 'Common/Function.php';
         if(MEMORY_LIMIT_ON)
         {
             $GLOBALS['StartUseMemory'] = memory_get_usage();
@@ -38,12 +40,10 @@ class MiloCore
     public static function run()
     {
         self::_init();
-        self::_define();
         spl_autoload_register('\Core\MiloCore::_load');
         $route = Route::getInstance();
         $control=$route->getControl();
         $action=$route->getAction();
-        $params=$route->getParams();
         $CtrlFile=APP_PATH.'controller/'.$control.'Controller'.EXT;
         $CtrlClass=trim(trim(APP_PATH,DIR),'/').'\Controller\\'.$control.'Controller';
         if (is_file($CtrlFile))
@@ -56,29 +56,12 @@ class MiloCore
             }
             else
             {
-                if (DEBUG)
-                {
-                    PrintFm($action.' 方法不存在');
-                }
-                else
-                {
-                    $url='http://localhost/index/not';
-                    JumpUrl($url);
-                }
+                GetError($action.' 方法不存在');
             }
         }
         else
         {
-            if(DEBUG)
-            {
-                PrintFm($control.' 控制器不存在');
-            }
-            else
-            {
-                $url='http://localhost/index/not';
-                JumpUrl($url);
-            }
-
+            GetError($control.' 控制器不存在');
         }
     }
     private static function _load(string $class) : bool
@@ -99,20 +82,19 @@ class MiloCore
             }
             else
             {
-                if (DEBUG)
-                {
-                    PrintFm('文件不存在 '.$file);
-                }
-                return false;
+                GetError('文件不存在 '.$file);
             }
+            return false;
         }
     }
     private static function _define()
     {
-        defined('CORE_PATH') or exit();
-        define('EXTEND',DIR.'Extend');
-        define('VENDOR',DIR.'Vendor');
-        defined('EXTEND') or define('PUBLIC',DIR.'Public');
+        defined('APP_PATH') or define('APP_PATH',DIR.'/Home/');
+        defined('DEBUG') or define('DEBUG',false);
+        defined('URL_SECRET') or define('URL_SECRET',false);
+        defined('EXTEND') or define('PUBLIC',DIR.'/Public/');
+        define('EXTEND',DIR.'/Extend/');
+        define('VENDOR',DIR.'/Vendor/');
         define('EXT','.class.php');
         define('VERSION','1.0.0');
         define('MAGIC_GPC',ini_get('magic_quotes_gpc')?true:false);

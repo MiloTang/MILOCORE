@@ -34,7 +34,7 @@ class Conf
         }
         else
         {
-            $path = CORE_PATH.'/Config/'.$file.'.php';
+            $path = CORE_PATH.'/Common/Config/'.$file.'.php';
             if (is_file($path))
             {
                 $conf = require_once $path;
@@ -43,9 +43,10 @@ class Conf
             }
             else
             {
-                PrintFm('配置文件不存在'.$file);
+                GetError('配置文件不存在'.$file);
                 return null;
             }
+
         }
     }
 }

@@ -6,30 +6,46 @@
  * Time: 23:10
  */
 namespace Home\Controller;
+use Core\Libs\Api;
+use Core\libs\Conf;
+use Core\libs\Model;
 use Core\Libs\ValidateCode;
 use Core\Libs\BaseController;
+use Home\Model\IndexModel;
 
+session_start();
 class IndexController extends BaseController
 {
     public function index()
     {
-
-        $v=ValidateCode::getInstance();
-        //$v->doImg(5);
-        echo $v->getCode();
         $arr=array('a'=>'123','b'=>'234');
-        $url='/index/verifyCode/abc/abc';
-        $url=$this->secret($url);
-        $this->assign('data',$url);
+        $url='/index/doFuck/abc/abc';
+        $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
         $this->display('index.html');
-        PrintFm($this->params());
-        echo $this->encrypt('123');
+        if(isset($_SESSION['code']))
+        {
+            echo $_SESSION['code'];
+        }
+        
     }
-    public function verifyCode()
+    public static function verifyCode()
     {
+
         $VCode=ValidateCode::getInstance();
         $VCode->doImg(5);
-        $_SESSION['ValidateCode']=$VCode->getCode();
+        $_SESSION['code']=$VCode->getCode();
+    }
+    public function not()
+    {
+        echo 'dir';
+    }
+    public function doFuck()
+    {
+        $arr=array('a'=>'123','b'=>'234');
+        $url='/index/verifyCode';
+        $this->assign('url',InUrl($url));
+        $this->assign('arr',$arr);
+        $this->display('index.html');
     }
 }

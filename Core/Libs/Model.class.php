@@ -72,10 +72,10 @@ class Model
         return $this->_pdo;
     }
     static public function getInstance(array $dbConf) {
-        if (!(static::$_instance instanceof static)) {
-            static::$_instance = new static($dbConf);
+        if (!(self::$_instance instanceof static)) {
+            self::$_instance = new static($dbConf);
         }
-        return static::$_instance;
+        return self::$_instance;
     }
     private function _setCharset()
     {
@@ -94,7 +94,7 @@ class Model
      * @param bool $debug
      * @return mixed
      */
-    public function doSql($sql,$bindParams,$debug=false)
+    public function doSql($sql,$bindParams=null,$debug=false)
     {
         if($debug)
         {

@@ -16,16 +16,51 @@ function PrintFm($var=null)
         echo '<pre style="background-color: #bbbbbb;color:brown;font-size: x-large"><b>'.print_r($var,true).'</b></pre>';
     }
 }
-function JumpUrl($url)
+function JumpUrl(string $url)
 {
     header('Location:'.$url);
     exit();
 }
-function Post()
+function InUrl(string $url):string
 {
+    if (URL_SECRET)
+    {
+        return base64_encode(urlencode($url));
+    }
+    else
+    {
+        return $url;
+    }
 
 }
-function Get()
+function OutUrl(string $url):string
 {
-
+    if (URL_SECRET)
+    {
+        return urldecode(base64_decode($url));
+    }
+    else
+    {
+        return $url;
+    }
+}
+function GetError(string $string)
+{
+    if (DEBUG)
+    {
+        PrintFm($string);
+        exit();
+    }
+    else
+    {
+        $log=\Core\libs\Log::getInstance();
+        echo $string;
+        $log->log($string);
+        $url='http://'.$_SERVER['SERVER_NAME'].'/'.InUrl('index/not');
+        JumpUrl($url);
+    }
+}
+function Encrypt($password)
+{
+    return md5(sha1(crypt($password,'MiloCore')));
 }

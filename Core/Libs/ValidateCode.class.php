@@ -79,7 +79,7 @@ class ValidateCode {
         imagepng($this->img);
         imagedestroy($this->img);
     }
-    public function doImg($len) {
+    public function doImg(int $len) {
         if ($len<=6&&$len>=4)
         {
             $this->codeLen=$len;
