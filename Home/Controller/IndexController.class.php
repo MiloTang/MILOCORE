@@ -43,7 +43,7 @@ class IndexController extends BaseController
     public function doFuck()
     {
         $arr=array('a'=>'123','b'=>'234');
-       $url='/index/index/abc/abc';
+        $url='/index/index/abc/abc';
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
         $this->display('index.html');

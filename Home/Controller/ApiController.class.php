@@ -24,8 +24,8 @@ public function api()
         'type'=>array(1,2,3,4),
         'test'=>array(1,2,56,22=>array(123,'milo'))
     );
-    $api->getApi(200,'d',$model->Lists(),$this->params()['type']);
-    //$api->getXml(200,'diu',$model->Lists());
+    //$api->getApi(200,'d',$model->Lists(),$this->params()['type']);
+    $api->getApi(200,'diu',$model->Lists());
 }
 
 }
