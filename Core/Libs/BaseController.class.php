@@ -19,25 +19,17 @@ class BaseController
         $this->data[$name]=$data;
     }
     public function display(string $view)
-    {
-        if (true)
+{
+        extract($this->data);
+        $file=APP_PATH.'Views/Templates/'.$view;
+        if(file_exists($file))
         {
-            $this->cacheHtml($view);
+            require_once $file;
         }
         else
         {
-            extract($this->data);
-            $file=APP_PATH.'Views/Templates/'.$view;
-            if(file_exists($file))
-            {
-                require_once $file;
-            }
-            else
-            {
-                PrintFm($view.' 模板不存在');
-            }
+            PrintFm($view.' 模板不存在');
         }
-
     }
     public function params():array
     {
@@ -107,7 +99,8 @@ class BaseController
                 if(file_exists($file))
                 {
                     ob_start();
-                    $contents=require_once $file;
+                    require_once $file;
+                    $contents = ob_get_contents();
                     file_put_contents($cacheFile,$contents);
                     ob_end_flush();
                 }

@@ -27,7 +27,7 @@ class IndexController extends BaseController
         {
             echo $_SESSION['code'];
         }
-        
+
     }
     public static function verifyCode()
     {
@@ -43,7 +43,7 @@ class IndexController extends BaseController
     public function doFuck()
     {
         $arr=array('a'=>'123','b'=>'234');
-        $url='/index/verifyCode';
+       $url='/index/index/abc/abc';
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
         $this->display('index.html');

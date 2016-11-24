@@ -6,6 +6,7 @@
  * Time: 6:26 PM
  */
 namespace Home\Controller;
+defined('CORE_PATH') or exit();
 use Core\Libs\Api;
 use Core\libs\BaseController;
 use Home\Model\IndexModel;

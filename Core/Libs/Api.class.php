@@ -6,6 +6,7 @@
  * Time: 6:15 PM
  */
 namespace Core\Libs;
+defined('CORE_PATH') or exit();
 class Api
 {
     private static $_instance;
