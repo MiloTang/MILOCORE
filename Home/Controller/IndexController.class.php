@@ -23,10 +23,7 @@ class IndexController extends BaseController
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
         $this->display('index.html');
-        if(isset($_SESSION['code']))
-        {
-            echo $_SESSION['code'];
-        }
+        echo $this->params()['a'];
 
     }
     public static function verifyCode()

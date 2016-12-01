@@ -37,12 +37,12 @@ class BaseController
         if($_SERVER['REQUEST_METHOD']=='GET')
         {
             $route=Route::getInstance();
-            $params=$route->getParams();
+            return $params=$route->getParams();
 
         }
         elseif($_SERVER['REQUEST_METHOD']=='POST')
         {
-            $params=$_POST;
+            return $params=$_POST;
         }
         if(MAGIC_GPC)
         {
@@ -60,7 +60,7 @@ class BaseController
         {
             if(is_string($value))
             {
-                $params[$key]=addslashes(htmlentities($value));
+                $params[$key]=addslashes(strip_tags(htmlentities($value,ENT_QUOTES)));
 
             }
             elseif(is_array($value))
@@ -76,12 +76,12 @@ class BaseController
         {
             if(is_string($value))
             {
-                $params[$key]=htmlentities($value);
+                $params[$key]=strip_tags(htmlentities($value,ENT_QUOTES));
 
             }
             elseif(is_array($value))
             {
-                $params[$key]=$this->filterParams($value);
+                $params[$key]=$this->filterGPCParams($value);
             }
         }
         return $params;
