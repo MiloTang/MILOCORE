@@ -16,10 +16,13 @@ use Home\Model\IndexModel;
 session_start();
 class IndexController extends BaseController
 {
+
     public function index()
     {
-        $arr=array('a'=>'123','b'=>'234','c'=>'789');
+
+        $arr=array('a'=>'123','b'=>'234','c'=>'789','d'=>'index');
         $url='/index/doFuck/abc/abc';
+        echo '<hr>'.'index';
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
         $this->display('index.html');
@@ -70,6 +73,9 @@ class IndexController extends BaseController
         $subject='dasc@dsd.co';
         echo preg_match_all($pattern,$subject,$macth2);
         PrintFm($macth2);
+        $backtrace = debug_backtrace();
+        PrintFm($backtrace);
+
     }
     public static function verifyCode()
     {
@@ -78,13 +84,22 @@ class IndexController extends BaseController
         $VCode->doImg(5);
         $_SESSION['code']=$VCode->getCode();
     }
+
     public function not()
     {
         echo 'dir';
     }
     public function doFuck()
     {
-        $arr=array('a'=>'123','b'=>'234');
+        $arr=array('a'=>'123','b'=>'doFuck');
+        $url='/index/buffer/abc/abc';
+        $this->assign('url',InUrl($url));
+        $this->assign('arr',$arr);
+        $this->display('index.html');
+    }
+    public function buffer()
+    {
+        $arr=array('a'=>'123','b'=>'buffer');
         $url='/index/index/abc/abc';
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);

@@ -93,9 +93,11 @@ class MiloCore
         defined('DEBUG') or define('DEBUG',false);
         defined('URL_SECRET') or define('URL_SECRET',false);
         defined('EXTEND') or define('PUBLIC',DIR.'/Public/');
-        define('EXTEND',DIR.'/Extend/');
-        define('VENDOR',DIR.'/Vendor/');
-        define('EXT','.class.php');
+        defined('EXTEND') or define('EXTEND',DIR.'/Extend/');
+        defined('VENDOR') or define('VENDOR',DIR.'/Vendor/');
+        defined('EXT') or define('EXT','.class.php');
+        defined('CACHE_HTML') or define('CACHE_HTML',false);
+        defined('CACHE_TIME') or define('CACHE_TIME',200);
         define('VERSION','1.0.0');
         define('MAGIC_GPC',ini_get('magic_quotes_gpc')?true:false);
     }

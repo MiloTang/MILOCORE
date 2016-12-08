@@ -10,26 +10,39 @@ defined('CORE_PATH') or exit();
 class BaseController
 {
     private $data;
+    private $class;
+    private $function;
     public function __construct()
     {
-
+        $route=Route::getInstance();
+        $this->class=$route->getControl();
+        $this->function=$route->getAction();
+        $this->cacheCheck(CACHE_TIME);
     }
     public function assign(string $name,$data)
     {
         $this->data[$name]=$data;
     }
     public function display(string $view)
-{
-        extract($this->data);
-        $file=APP_PATH.'Views/Templates/'.$view;
-        if(file_exists($file))
+    {
+        if (CACHE_HTML)
         {
-            require_once $file;
+            $this->createHtml($view);
         }
         else
         {
-            PrintFm($view.' 模板不存在');
+            extract($this->data);
+            $file=APP_PATH.'Views/Templates/'.$view;
+            if(file_exists($file))
+            {
+                require_once $file;
+            }
+            else
+            {
+                PrintFm($view.' 模板不存在');
+            }
         }
+
     }
     public function params():array
     {
@@ -77,7 +90,6 @@ class BaseController
             if(is_string($value))
             {
                 $params[$key]=strip_tags(htmlentities($value,ENT_QUOTES));
-
             }
             elseif(is_array($value))
             {
@@ -86,48 +98,43 @@ class BaseController
         }
         return $params;
     }
-    private function cacheHtml(string $view)
+    private function createHtml(string $view)
     {
-        $cacheFile=APP_PATH.'Views/Cache/'.$view;
-        extract($this->data);
+        $FName=md5($this->class.$this->function);
+        $cacheFile=APP_PATH.'Views/Cache/'.$FName.'.html';
         $file=APP_PATH.'Views/Templates/'.$view;
-        if (is_file($cacheFile))
+        extract($this->data);
+        if(file_exists($file))
         {
-            $createTime=filectime($cacheFile);
-            if ((microtime()-$createTime)>5000)
-            {
-                if(file_exists($file))
-                {
-                    ob_start();
-                    require_once $file;
-                    $contents = ob_get_contents();
-                    file_put_contents($cacheFile,$contents);
-                    ob_end_flush();
-                }
-                else
-                {
-                    GetError($view.' 模板不存在');
-                }
-            }
-            else
-            {
-                require_once $cacheFile;
-            }
+            ob_start();
+            require_once $file;
+            $contents = ob_get_contents();
+            file_put_contents($cacheFile,$contents);
+            ob_end_flush();
         }
         else
         {
-            if(file_exists($file))
+            GetError($view.' 模板不存在');
+        }
+    }
+    public function cacheCheck(int $cacheTime=200)
+    {
+        if(CACHE_HTML)
+        {
+            $FName=md5($this->class.$this->function);
+            $cacheFile=APP_PATH.'Views/Cache/'.$FName.'.html';
+            if (is_file($cacheFile))
             {
-                ob_start();
-                require_once $file;
-                $contents = ob_get_contents();
-                file_put_contents($cacheFile,$contents);
-                ob_end_flush();
-
-            }
-            else
-            {
-                GetError($view.' 模板不存在');
+                $aTime=fileatime($cacheFile);
+                if ((time()-$aTime)>$cacheTime)
+                {
+                    unlink($cacheFile);
+                }
+                else
+                {
+                    require_once $cacheFile;
+                    exit();
+                }
             }
         }
     }
