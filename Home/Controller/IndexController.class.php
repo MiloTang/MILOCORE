@@ -25,7 +25,7 @@ class IndexController extends BaseController
         echo '<hr>'.'index';
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
-        $this->display('index.html');
+        $this->display('index.php');
         echo '</br>';
         PrintFm($this->params());
         echo '</br>';
@@ -95,7 +95,7 @@ class IndexController extends BaseController
         $url='/index/buffer/abc/abc';
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
-        $this->display('index.html');
+        $this->display('index.php');
     }
     public function buffer()
     {
@@ -103,6 +103,6 @@ class IndexController extends BaseController
         $url='/index/index/abc/abc';
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
-        $this->display('index.html');
+        $this->display('index.php');
     }
 }

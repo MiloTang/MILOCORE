@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+<a href="<?php echo $url; ?>">chou</a>
+<?php foreach($arr as $key=>$value)
+    {
+           echo '<li>'.$value.'</li>';
+    }
+?>
+<?php echo 'yes'; ?>
+</body>
+
+</html>
