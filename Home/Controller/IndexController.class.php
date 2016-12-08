@@ -18,13 +18,58 @@ class IndexController extends BaseController
 {
     public function index()
     {
-        $arr=array('a'=>'123','b'=>'234');
+        $arr=array('a'=>'123','b'=>'234','c'=>'789');
         $url='/index/doFuck/abc/abc';
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
         $this->display('index.html');
-        echo $this->params()['a'];
-
+        echo '</br>';
+        PrintFm($this->params());
+        echo '</br>';
+        var_dump(\PDO::getAvailableDrivers());
+        $pattern='/[0-9]{2}/';
+        echo '<hr>';
+        $subject='psadsa213l22l2p';
+        $macth1=$macth2=array();
+        echo preg_match($pattern,$subject,$macth1);
+        echo '<hr>';
+        echo preg_match_all($pattern,$subject,$macth2);
+        echo '<hr>';
+        PrintFm($macth1);
+        echo '<hr>';
+        PrintFm($macth2);
+        echo '<hr>';
+        $subject=array('psads','a213','l22l2p');
+        $replacement='PPP';
+        PrintFm(preg_filter($pattern,$replacement,$subject));//只保留被替换的数组字符串
+        echo '<hr>';
+        PrintFm(preg_replace($pattern,$replacement,$subject));
+        echo '<hr>';
+        PrintFm(preg_grep($pattern,$subject));
+        echo '<hr>';
+        $subject='psad{sa}2[13b]22b2p';
+        PrintFm(preg_split($pattern,$subject));
+        echo '<hr>';
+        PrintFm(preg_quote($subject));
+        echo '<hr>';
+        $subject='psad{sa}2[13b]22b2p月';
+        $pattern='/[\{\[p]sa/';
+        echo preg_match_all($pattern,$subject);
+        echo '<hr>';
+        $pattern='/[^0-9A-Za-z]/';
+        echo preg_match_all($pattern,$subject);
+        echo '<hr>';
+        $pattern='/milo.+2016/';
+        $subject='milo_201620162016';
+        preg_match_all($pattern,$subject,$macth1);
+        PrintFm($macth1);
+        $pattern='/milo.+2016/U';
+        preg_match_all($pattern,$subject,$macth1);
+        PrintFm($macth1);
+        $pattern='/^\w+(\.\w+)*@\w+(\.\w+)+$/';
+        $subject='dasc@dsd.co';
+        echo preg_match_all($pattern,$subject,$macth2);
+        PrintFm($macth2);
     }
     public static function verifyCode()
     {
