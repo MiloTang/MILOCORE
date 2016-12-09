@@ -126,7 +126,6 @@ class MiloCore
         else
         {
             define('WEB_PATH',APP_PATH);
-            echo APP_PATH;
         }
     }
     
