@@ -23,21 +23,31 @@ function JumpUrl(string $url)
 }
 function InUrl(string $url):string
 {
+    if (substr($url,strlen($url)-5)=='.html')
+    {
+        $url=substr($url,0,strlen($url)-5);
+    }
     if (URL_SECRET)
     {
-        return base64_encode(urlencode($url));
+        return base64_encode(urlencode($url)).'.html';
     }
     else
     {
-        return $url;
+        return $url.'.html';
     }
 
 }
 function OutUrl(string $url):string
 {
+
+    if (substr($url,strlen($url)-5)=='.html')
+    {
+        $url=substr($url,0,strlen($url)-5);
+    }
     if (URL_SECRET)
     {
-        return urldecode(base64_decode($url));
+
+        return urldecode(base64_decode($url));;
     }
     else
     {
