@@ -13,9 +13,17 @@ use Core\libs\Route;
 class MiloCore
 {
     private static $_classMap= array();
+    private function __construct()
+    {
+    }
+    private function __clone()
+    {
+
+    }
     private static function _init()
     {
         self::_define();
+        self::_path();
         DEBUG?ini_set('display_errors','On'):ini_set('display_errors','Off');
         date_default_timezone_set('Asia/Chongqing');
         $GLOBALS['StartTime'] = microtime(TRUE);
@@ -25,17 +33,16 @@ class MiloCore
         {
             $GLOBALS['StartUseMemory'] = memory_get_usage();
         }
-        if(!is_dir(APP_PATH))
+        if(!is_dir(WEB_PATH))
         {
-            mkdir(APP_PATH, 0777, true);
+            mkdir(WEB_PATH, 0777, true);
             $conf= require CORE_PATH.'Common/Config/CatalogConfig.php';
-            mkdir(APP_PATH.$conf['MODEL'], 0777, true);
-            mkdir(APP_PATH.$conf['VIEW'], 0777, true);
-            mkdir(APP_PATH.$conf['CONTROLLER'], 0777, true);
-            mkdir(APP_PATH.$conf['COMMON'], 0777, true);
-            mkdir(APP_PATH.$conf['RUNNING'], 0777, true);
+            mkdir(WEB_PATH.$conf['MODEL'], 0777, true);
+            mkdir(WEB_PATH.$conf['VIEW'], 0777, true);
+            mkdir(WEB_PATH.$conf['CONTROLLER'], 0777, true);
+            mkdir(WEB_PATH.$conf['COMMON'], 0777, true);
+            mkdir(WEB_PATH.$conf['RUNNING'], 0777, true);
         }
-
     }
     public static function run()
     {
@@ -44,8 +51,8 @@ class MiloCore
         $route = Route::getInstance();
         $control=$route->getControl();
         $action=$route->getAction();
-        $CtrlFile=APP_PATH.'controller/'.$control.'Controller'.EXT;
-        $CtrlClass=trim(trim(APP_PATH,DIR),'/').'\Controller\\'.$control.'Controller';
+        $CtrlFile=WEB_PATH.'controller/'.$control.'Controller'.EXT;
+        $CtrlClass=trim(trim(WEB_PATH,DIR),'/').'\Controller\\'.$control.'Controller';
         if (is_file($CtrlFile))
         {
             require_once $CtrlFile;
@@ -98,8 +105,29 @@ class MiloCore
         defined('EXT') or define('EXT','.class.php');
         defined('CACHE_HTML') or define('CACHE_HTML',false);
         defined('CACHE_TIME') or define('CACHE_TIME',200);
+        defined('ADMIN_SLD_NAME') or define('ADMIN_SLD_NAME',NULL);
         define('VERSION','1.0.0');
         define('MAGIC_GPC',ini_get('magic_quotes_gpc')?true:false);
+        $SLD=explode('.',$_SERVER['HTTP_HOST'])[0];
+        if($SLD!='localhost'&&$SLD!='127'&&strtolower($SLD)==strtolower(ADMIN_SLD_NAME)&&ADMIN_SLD_NAME!=NULL)
+        {
+            define('IS_ADMIN',true);
+        }
+        defined('IS_ADMIN') or define('IS_ADMIN',false);
+    }
+    private static function _path()
+    {
+
+
+        if (IS_ADMIN)
+        {
+            define('WEB_PATH',DIR.'/'.ADMIN_SLD_NAME.'/');
+        }
+        else
+        {
+            define('WEB_PATH',APP_PATH);
+            echo APP_PATH;
+        }
     }
     
 }

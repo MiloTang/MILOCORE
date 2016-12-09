@@ -19,7 +19,6 @@ class IndexController extends BaseController
 
     public function index()
     {
-
         $arr=array('a'=>'123','b'=>'234','c'=>'789','d'=>'index');
         $url='/index/doFuck/abc/abc';
         echo '<hr>'.'index';

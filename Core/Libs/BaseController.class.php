@@ -31,8 +31,11 @@ class BaseController
         }
         else
         {
-            extract($this->data);
-            $file=APP_PATH.'Views/Templates/'.$view;
+            if ($this->data!=null)
+            {
+                extract($this->data);
+            }
+            $file=WEB_PATH.'Views/Templates/'.$view;
             if(file_exists($file))
             {
                 require_once $file;
@@ -101,9 +104,12 @@ class BaseController
     private function createHtml(string $view)
     {
         $FName=md5($this->class.$this->function);
-        $cacheFile=APP_PATH.'Views/Cache/'.$FName.'.html';
-        $file=APP_PATH.'Views/Templates/'.$view;
-        extract($this->data);
+        $cacheFile=WEB_PATH.'Views/Cache/'.$FName.'.html';
+        $file=WEB_PATH.'Views/Templates/'.$view;
+        if ($this->data!=null)
+        {
+            extract($this->data);
+        }
         if(file_exists($file))
         {
             ob_start();
@@ -122,7 +128,7 @@ class BaseController
         if(CACHE_HTML)
         {
             $FName=md5($this->class.$this->function);
-            $cacheFile=APP_PATH.'Views/Cache/'.$FName.'.html';
+            $cacheFile=WEB_PATH.'Views/Cache/'.$FName.'.html';
             if (is_file($cacheFile))
             {
                 $aTime=fileatime($cacheFile);
