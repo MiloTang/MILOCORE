@@ -20,11 +20,10 @@ class IndexController extends BaseController
     {
         $arr=array('a'=>'123','b'=>'234');
         $url='/index/doFuck/abc/abc';
+        echo $url{0};
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
         $this->display('index.html');
-        echo $this->params()['a'];
-
     }
     public static function verifyCode()
     {

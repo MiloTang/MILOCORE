@@ -8,13 +8,13 @@
 namespace Core\Libs;
 defined('CORE_PATH') or exit();
 class ValidateCode {
-    private $code;       //验证码
-    private $codeLen = 6;     //验证码长度
-    private $width = 150;     //宽度
-    private $height = 50;     //高度
-    private $img;        //图形资源句柄
-    private $fontSize = 18;    //指定字体大小
-    private $fontColor;      //指定字体颜色
+    private $code;
+    private $codeLen = 6;
+    private $width = 150;
+    private $height = 50;
+    private $img;
+    private $fontSize = 18;
+    private $fontColor;      
     private static $_instance;
     private function __construct()
     {
