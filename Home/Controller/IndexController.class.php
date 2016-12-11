@@ -21,12 +21,13 @@ class IndexController extends BaseController
     {
         $arr=array('a'=>'123','b'=>'234','c'=>'789','d'=>'index');
         $url='/index/doFuck/abc/abc';
-<<<<<<< HEAD
-        echo $url{0};
+        $url1='/index/buffer/abc/aaaa/';
         $this->assign('url',InUrl($url));
+        $this->assign('url1',InUrl($url1));
+        $url2='/index/fuckAgain/';
+        $this->assign('url2',InUrl($url2));
         $this->assign('arr',$arr);
-        $this->display('index.html');
-=======
+        $this->display('index.php');
         echo '<hr>'.'index';
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
@@ -80,8 +81,6 @@ class IndexController extends BaseController
         PrintFm($macth2);
         $backtrace = debug_backtrace();
         PrintFm($backtrace);
-
->>>>>>> 1fc33571e78ddd69fbd575a0610ca315d9ec4116
     }
     public static function verifyCode()
     {
@@ -99,7 +98,9 @@ class IndexController extends BaseController
     {
         $arr=array('a'=>'123','b'=>'doFuck');
         $url='/index/buffer/abc/abc';
+        $url1='/index/fuckAgain/';
         $this->assign('url',InUrl($url));
+        $this->assign('url1',InUrl($url1));
         $this->assign('arr',$arr);
         $this->display('index.php');
     }
@@ -107,8 +108,14 @@ class IndexController extends BaseController
     {
         $arr=array('a'=>'123','b'=>'buffer');
         $url='/index/index/abc/abc';
+        PrintFm($this->params());
+        PrintFm($_GET);
         $this->assign('url',InUrl($url));
         $this->assign('arr',$arr);
         $this->display('index.php');
+    }
+    public function fuckAgain()
+    {
+        PrintFm($_POST);
     }
 }
