@@ -15,6 +15,7 @@ class MiloCore
     private static $_classMap= array();
     private function __construct()
     {
+
     }
     private function __clone()
     {
@@ -22,6 +23,7 @@ class MiloCore
     }
     private static function _init()
     {
+        if(version_compare(PHP_VERSION,'7.0.0','<'))die('require PHP > 7.0.0 !');
         self::_define();
         self::_path();
         DEBUG?ini_set('display_errors','On'):ini_set('display_errors','Off');
@@ -44,10 +46,12 @@ class MiloCore
             mkdir(WEB_PATH.$conf['RUNNING'], 0777, true);
         }
     }
+
     public static function run()
     {
         self::_init();
-        spl_autoload_register('\Core\MiloCore::_load');
+        spl_autoload_register('self::_load');
+        //self::_autoload();
         $route = Route::getInstance();
         $control=$route->getControl();
         $action=$route->getAction();
@@ -55,7 +59,7 @@ class MiloCore
         $CtrlClass=trim(trim(WEB_PATH,DIR),'/').'\Controller\\'.$control.'Controller';
         if (is_file($CtrlFile))
         {
-            require_once $CtrlFile;
+       //   require_once $CtrlFile;
             $ctrl = new $CtrlClass();
             if (method_exists($ctrl,$action))
             {
@@ -94,6 +98,12 @@ class MiloCore
             return false;
         }
     }
+    private static function _autoload()
+    {
+        spl_autoload_extensions('.class.php');
+        set_include_path(get_include_path().PATH_SEPARATOR.'');
+        spl_autoload_register();
+    }
     private static function _define()
     {
         defined('APP_PATH') or define('APP_PATH',DIR.'/Home/');
@@ -117,8 +127,6 @@ class MiloCore
     }
     private static function _path()
     {
-
-
         if (IS_ADMIN)
         {
             define('WEB_PATH',DIR.'/'.ADMIN_SLD_NAME.'/');

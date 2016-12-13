@@ -15,4 +15,8 @@ class IndexController extends BaseController
     {
         $this->display('index.php');
     }
+    public function sayHi()
+    {
+        echo 'just say hi';
+    }
 }
