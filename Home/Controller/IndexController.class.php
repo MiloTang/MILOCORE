@@ -118,4 +118,9 @@ class IndexController extends BaseController
     {
         PrintFm($_POST);
     }
+    public function config()
+    {
+        $model=Model::getInstance(Conf('DBConfig'));
+        PrintFm($model->doSql('select * from shotblog'));
+    }
 }

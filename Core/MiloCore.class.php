@@ -7,9 +7,7 @@
  */
 
 namespace Core;
-defined('CORE_PATH') or exit();
 use Core\libs\Route;
-
 class MiloCore
 {
     private static $_classMap= array();
@@ -35,18 +33,21 @@ class MiloCore
         {
             $GLOBALS['StartUseMemory'] = memory_get_usage();
         }
+
         if(!is_dir(WEB_PATH))
         {
             mkdir(WEB_PATH, 0777, true);
             $conf= require CORE_PATH.'Common/Config/CatalogConfig.php';
             mkdir(WEB_PATH.$conf['MODEL'], 0777, true);
             mkdir(WEB_PATH.$conf['VIEW'], 0777, true);
+            mkdir(WEB_PATH.$conf['VIEW'].'/Cache', 0777, true);
+            mkdir(WEB_PATH.$conf['VIEW'].'/Templates', 0777, true);
             mkdir(WEB_PATH.$conf['CONTROLLER'], 0777, true);
             mkdir(WEB_PATH.$conf['COMMON'], 0777, true);
+            mkdir(WEB_PATH.$conf['COMMON'].'/Config', 0777, true);
             mkdir(WEB_PATH.$conf['RUNNING'], 0777, true);
         }
     }
-
     public static function run()
     {
         self::_init();
@@ -56,10 +57,9 @@ class MiloCore
         $control=$route->getControl();
         $action=$route->getAction();
         $CtrlFile=WEB_PATH.'controller/'.$control.'Controller'.EXT;
-        $CtrlClass=trim(trim(WEB_PATH,DIR),'/').'\Controller\\'.$control.'Controller';
+        $CtrlClass=trim(ltrim(WEB_PATH,ROOT_DIR),'/').'\Controller\\'.$control.'Controller';
         if (is_file($CtrlFile))
         {
-       //   require_once $CtrlFile;
             $ctrl = new $CtrlClass();
             if (method_exists($ctrl,$action))
             {
@@ -83,11 +83,11 @@ class MiloCore
         }
         else
         {
-            $class=str_replace('\\','/',DIR.'/'.$class);
+            $class=ROOT_DIR.'/'.$class;
             $file=$class.EXT;
             if(is_file($file))
             {
-                require_once $file;
+                require_once $file.'';
                 self::$_classMap[$class]=$class;
                 return true;
             }
@@ -106,16 +106,19 @@ class MiloCore
     }
     private static function _define()
     {
-        defined('APP_PATH') or define('APP_PATH',DIR.'/Home/');
+        defined('ROOT_DIR') or define('ROOT_DIR',str_replace('\\','/',getcwd()));
+        defined('APP_NAME') or define('APP_NAME','Home');
+        defined('APP_PATH') or define('APP_PATH',ROOT_DIR.'/'.APP_NAME.'/');
         defined('DEBUG') or define('DEBUG',false);
         defined('URL_SECRET') or define('URL_SECRET',false);
-        defined('EXTEND') or define('PUBLIC',DIR.'/Public/');
-        defined('EXTEND') or define('EXTEND',DIR.'/Extend/');
-        defined('VENDOR') or define('VENDOR',DIR.'/Vendor/');
+        defined('EXTEND') or define('PUBLIC',ROOT_DIR.'/Public/');
+        defined('EXTEND') or define('EXTEND',ROOT_DIR.'/Extend/');
+        defined('VENDOR') or define('VENDOR',ROOT_DIR.'/Vendor/');
         defined('EXT') or define('EXT','.class.php');
         defined('CACHE_HTML') or define('CACHE_HTML',false);
         defined('CACHE_TIME') or define('CACHE_TIME',200);
         defined('ADMIN_SLD_NAME') or define('ADMIN_SLD_NAME',NULL);
+        defined('CORE_PATH') or define('CORE_PATH',ROOT_DIR.'/Core/');
         define('VERSION','1.0.0');
         define('MAGIC_GPC',ini_get('magic_quotes_gpc')?true:false);
         $SLD=explode('.',$_SERVER['HTTP_HOST'])[0];
@@ -129,12 +132,11 @@ class MiloCore
     {
         if (IS_ADMIN)
         {
-            define('WEB_PATH',DIR.'/'.ADMIN_SLD_NAME.'/');
+            define('WEB_PATH',ROOT_DIR.'/'.ADMIN_SLD_NAME.'/');
         }
         else
         {
             define('WEB_PATH',APP_PATH);
         }
     }
-    
 }

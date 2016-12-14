@@ -26,27 +26,36 @@ class Conf
     {
 
     }
-    static public function all(string $file):array
+    static public function conf(string $name):array
     {
-        if(isset(self::$conf[$file]))
+        if(isset(self::$conf[$name]))
         {
-            return self::$conf[$file];
+            return self::$conf[$name];
         }
         else
         {
-            $path = CORE_PATH.'/Common/Config/'.$file.'.php';
-            if (is_file($path))
+            $file = WEB_PATH.'/Common/Config/'.$name.'.php';
+            if (is_file($file))
             {
-                $conf = require_once $path;
-                self::$conf[$file] = $conf;
+                $conf = require_once $file.'';
+                self::$conf[$name] = $conf;
                 return $conf;
             }
             else
             {
-                GetError('配置文件不存在'.$file);
-                return null;
+                $file = CORE_PATH.'/Common/Config/'.$name.'.php';
+                if (is_file($file))
+                {
+                    $conf = require_once $file.'';
+                    self::$conf[$name] = $conf;
+                    return $conf;
+                }
+                else
+                {
+                    GetError('配置文件不存在'.$name);
+                    return null;
+                }
             }
-
         }
     }
 }

@@ -112,7 +112,6 @@ class Model
             {
                 $rst= $stmt->execute($bindParams);
             }
-
             return $rst;
         }
         catch (\PDOException $e)

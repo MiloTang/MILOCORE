@@ -103,3 +103,24 @@ function DirList(string $dir)
         $it->next();
     }
 }
+function Conf(string $name='Config'):array
+{
+    $file = WEB_PATH.'/Common/Config/'.$name.'.php';
+    if (is_file($file))
+    {
+        return $conf = require_once $file.'';
+    }
+    else
+    {
+        $file = CORE_PATH.'/Common/Config/'.$name.'.php';
+        if (is_file($file))
+        {
+            return $conf = require_once $file.'';
+        }
+        else
+        {
+            GetError('配置文件不存在'.$name);
+            return null;
+        }
+    }
+}

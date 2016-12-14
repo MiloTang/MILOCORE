@@ -12,7 +12,7 @@ class FileLog
     private static $_instance;
     private function __construct()
     {
-        $this->path=DIR.'/Running/log/';
+        $this->path=ROOT_DIR.'/Running/log/';
     }
     public static  function getInstance()
     {
