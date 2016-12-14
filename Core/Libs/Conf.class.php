@@ -26,34 +26,68 @@ class Conf
     {
 
     }
-    static public function conf(string $name):array
+    static public function conf(string $name,string $index=null):array
     {
-        if(isset(self::$conf[$name]))
+        if (isset(self::$conf[$name]))
         {
-            return self::$conf[$name];
-        }
-        else
-        {
-            $file = WEB_PATH.'/Common/Config/'.$name.'.php';
-            if (is_file($file))
+            if ($index!= null)
             {
-                $conf = require_once $file.'';
-                self::$conf[$name] = $conf;
-                return $conf;
+                return self::$conf[$name][$index];
             }
             else
             {
-                $file = CORE_PATH.'/Common/Config/'.$name.'.php';
-                if (is_file($file))
+                return self::$conf[$name];
+            }
+        }
+        else
+        {
+            $file = WEB_PATH . '/Common/Config/' . $name . '.php';
+            if (is_file($file)) {
+                $conf = require_once $file . '';
+                self::$conf[$name] = $conf;
+                if ($index !== null)
                 {
-                    $conf = require_once $file.'';
-                    self::$conf[$name] = $conf;
-                    return $conf;
+                    if(isset($conf[$index]))
+                    {
+                        return $conf[$index];
+                    }
+                    else
+                    {
+                        GetError('次索引不存在' . $name);
+                    }
                 }
                 else
                 {
-                    GetError('配置文件不存在'.$name);
-                    return null;
+                    return $conf;
+                }
+
+            }
+            else
+            {
+                $file = CORE_PATH . '/Common/Config/' . $name . '.php';
+                if (is_file($file))
+                {
+                    $conf = require_once $file . '';
+                    self::$conf[$name] = $conf;
+                    if ($index !== null)
+                    {
+                        if(isset($conf[$index]))
+                        {
+                            return $conf[$index];
+                        }
+                        else
+                        {
+                            GetError('次索引不存在' . $name);
+                        }
+                    }
+                    else
+                    {
+                        return $conf;
+                    }
+                }
+                else
+                {
+                    GetError('配置文件不存在' . $name);
                 }
             }
         }

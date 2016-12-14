@@ -120,7 +120,10 @@ class IndexController extends BaseController
     }
     public function config()
     {
-        $model=Model::getInstance(Conf('DBConfig'));
-        PrintFm($model->doSql('select * from shotblog'));
+        $model=new IndexModel();
+        PrintFm($model->one());
+        echo '<hr>';
+        PrintFm($model->Lists());
+
     }
 }

@@ -103,6 +103,7 @@ class Model
         try
         {
             $stmt = $this->_pdo->prepare($sql);
+            PrintFm($bindParams);
             $stmt->execute($bindParams);
             if(substr(trim($sql),0,6)=='select')
             {

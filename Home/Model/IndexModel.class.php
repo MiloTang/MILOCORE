@@ -13,9 +13,17 @@ use Core\libs\Model;
 class IndexModel
 {
 
-    public function Lists():array
+    public function lists():array
     {
-        $model= Model::getInstance(Conf::getInstance()->all('DBConfig'));
+        $conf=Conf('DBConfig');
+        $model= Model($conf);
         return $model->doSql('select * from shotblog',null,false);
+    }
+    public function one():array
+    {
+
+        $model=Model::getInstance(Conf::conf('Config','DB'));
+        $parms=array(':blogid'=>1);
+        return $model->doSql('select * from shotblog where blogid=:blogid',$parms,false);
     }
 }

@@ -14,7 +14,7 @@ return array(
         'COMMON'=>'Common',
         'RUNNING'=>'Running'
     ),
-    'Database'=>array(
+    'DB'=>array(
         'dsn'=>'mysql:host=localhost;',
         'dbName'=>'milo',
         'username'=>'root',
