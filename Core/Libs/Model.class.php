@@ -71,8 +71,14 @@ class Model
         }
         return $this->_pdo;
     }
-    static public function getInstance(array $dbConf) {
-        if (!(self::$_instance instanceof static)) {
+    static public function getInstance(array $dbConf=null)
+    {
+        if($dbConf==null)
+        {
+          $dbConf=isset(Conf::getInstance()->conf('Config')['DB'])?Conf::getInstance()->conf('Config')['DB']:null;
+        }
+        if (!(self::$_instance instanceof static))
+        {
             self::$_instance = new static($dbConf);
         }
         return self::$_instance;

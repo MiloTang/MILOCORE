@@ -29,6 +29,7 @@ class MiloCore
         $GLOBALS['StartTime'] = microtime(TRUE);
         define('MEMORY_LIMIT_ON',function_exists('memory_get_usage'));
         require CORE_PATH.'Common/Function.php';
+        require CORE_PATH.'Common/Common.php';
         if(MEMORY_LIMIT_ON)
         {
             $GLOBALS['StartUseMemory'] = memory_get_usage();

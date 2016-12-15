@@ -82,7 +82,7 @@ class IndexController extends BaseController
     public static function verifyCode()
     {
 
-        $VCode=ValidateCode::getInstance();
+        $VCode=ValidateCode();
         $VCode->doImg(5);
         $_SESSION['code']=$VCode->getCode();
     }

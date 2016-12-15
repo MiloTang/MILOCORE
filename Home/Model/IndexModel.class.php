@@ -15,14 +15,14 @@ class IndexModel
 
     public function lists():array
     {
-        $conf=Conf('DBConfig');
+        $conf=Conf()->conf('DBConfig');
         $model= Model($conf);
         return $model->doSql('select * from shotblog',null,false);
     }
     public function one():array
     {
 
-        $model=Model::getInstance(Conf::conf('Config','DB'));
+        $model=Model::getInstance();
         $parms=array(':blogid'=>1);
         return $model->doSql('select * from shotblog where blogid=:blogid',$parms,false);
     }
