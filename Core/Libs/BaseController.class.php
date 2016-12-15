@@ -38,7 +38,7 @@ class BaseController
             $file=WEB_PATH.'Views/Templates/'.$view;
             if(file_exists($file))
             {
-                require_once $file;
+                require_once $file.'';
             }
             else
             {
@@ -113,7 +113,7 @@ class BaseController
         if(file_exists($file))
         {
             ob_start();
-            require_once $file;
+            require_once $file.'';
             $contents = ob_get_contents();
             file_put_contents($cacheFile,$contents);
             ob_end_flush();
@@ -138,7 +138,7 @@ class BaseController
                 }
                 else
                 {
-                    require_once $cacheFile;
+                    require_once $cacheFile.'';
                     exit();
                 }
             }

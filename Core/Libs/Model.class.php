@@ -103,7 +103,6 @@ class Model
         try
         {
             $stmt = $this->_pdo->prepare($sql);
-            PrintFm($bindParams);
             $stmt->execute($bindParams);
             if(substr(trim($sql),0,6)=='select')
             {
@@ -168,7 +167,7 @@ class Model
 
     public function counts($table) : int
     {
-        $sql='select count(*) from '.$table;
+        $sql=''.'select count(*) from '.$table;
         $rowCount=$this->_pdo->query($sql)->fetchColumn();
         return $rowCount;
     }

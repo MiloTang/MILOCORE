@@ -9,7 +9,7 @@ namespace Core\libs;
 defined('CORE_PATH') or exit();
 class Conf
 {
-    private static $conf;
+    private static $_conf;
     private static $_instance;
     private function __construct()
     {
@@ -28,15 +28,15 @@ class Conf
     }
     static public function conf(string $name,string $index=null):array
     {
-        if (isset(self::$conf[$name]))
+        if (isset(self::$_conf[$name]))
         {
             if ($index!= null)
             {
-                return self::$conf[$name][$index];
+                return self::$_conf[$name][$index];
             }
             else
             {
-                return self::$conf[$name];
+                return self::$_conf[$name];
             }
         }
         else
@@ -44,7 +44,7 @@ class Conf
             $file = WEB_PATH . '/Common/Config/' . $name . '.php';
             if (is_file($file)) {
                 $conf = require_once $file . '';
-                self::$conf[$name] = $conf;
+                self::$_conf[$name] = $conf;
                 if ($index !== null)
                 {
                     if(isset($conf[$index]))
@@ -68,7 +68,7 @@ class Conf
                 if (is_file($file))
                 {
                     $conf = require_once $file . '';
-                    self::$conf[$name] = $conf;
+                    self::$_conf[$name] = $conf;
                     if ($index !== null)
                     {
                         if(isset($conf[$index]))
@@ -91,5 +91,6 @@ class Conf
                 }
             }
         }
+        return null;
     }
 }

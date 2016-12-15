@@ -6,9 +6,6 @@
  * Time: 23:10
  */
 namespace Home\Controller;
-use Core\Libs\Api;
-use Core\libs\Conf;
-use Core\libs\Model;
 use Core\Libs\ValidateCode;
 use Core\Libs\BaseController;
 use Home\Model\IndexModel;
@@ -123,7 +120,7 @@ class IndexController extends BaseController
         $model=new IndexModel();
         PrintFm($model->one());
         echo '<hr>';
-        PrintFm($model->Lists());
+        PrintFm($model->lists());
 
     }
 }

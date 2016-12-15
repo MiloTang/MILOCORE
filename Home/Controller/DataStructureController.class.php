@@ -15,6 +15,7 @@ class DataStructureController extends BaseController implements \Countable
         $this->fileIteratorDir(getcwd());
         $this->countNum($this->generateArray());
         $this->dirList(getcwd());
+        $this->fileIteratorPrint(getcwd());
         $this->spl();
     }
     private function SplDoublyLinkedList()

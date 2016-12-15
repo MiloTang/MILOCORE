@@ -28,7 +28,7 @@ class MiloCore
         date_default_timezone_set('Asia/Chongqing');
         $GLOBALS['StartTime'] = microtime(TRUE);
         define('MEMORY_LIMIT_ON',function_exists('memory_get_usage'));
-        require CORE_PATH . 'Common/Function.php';
+        require CORE_PATH.'Common/Function.php';
         if(MEMORY_LIMIT_ON)
         {
             $GLOBALS['StartUseMemory'] = memory_get_usage();
