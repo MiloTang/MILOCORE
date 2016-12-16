@@ -22,6 +22,7 @@
         }
     </style>
     <script type="text/javascript">
+        console.log('众里寻他千百度，蓦然回首，那人却在灯火阑珊处');
         document.write('html5自适应');
         function clickBt() //定义函数
         {
@@ -102,7 +103,7 @@
         }
     </script>
 </head>
-<body>
+<body onload="myFunction()">
 <input type="button" value="物种判断" onclick="clickBt('d')"/>
 <pre>
 <button onclick="rec()">测试</button>
@@ -150,7 +151,9 @@
     <input type="button" value="隐藏内容" onclick="tr()">
     <input type="button" value="显示内容" onclick="tt()">
     <input type="button" value="取消设置" onclick="isCancel()">
+<pre>
 
+</pre>
     <script type="text/javascript">
         //定义"改变颜色"的函数
         var obj=document.getElementById("txt");
@@ -191,6 +194,9 @@
                 obj.style.backgroundColor=bgColor;
                 obj.style.display="block";
             }
+        }
+        function myFunction(){
+            alert("页面加载完成");
         }
     </script>
 
