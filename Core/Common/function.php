@@ -25,3 +25,7 @@ function ValidateCode()
 {
     return \Core\Libs\ValidateCode::getInstance();
 }
+function Template()
+{
+    return \Core\libs\Template::getInstance();
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+diu na
+<pre></pre>
+{$data['1']}
+<pre></pre>
+{if($name==1)}
+1
+{elseif($name == 2)}
+2
+{else}
+3
+{/endif}
+{foreach ($data as $item=>$value)}
+<pre>{$value}</pre>
+{/endforeach}
+{switch($name)}
+{case 1}
+<hr>
+diu1
+{/break}
+{case 2}
+<hr>
+diu2
+{/break}
+{case 3}
+<hr>
+diu3
+{/break}
+{case 4}
+<hr>
+diu4
+{/break}
+{/endswitch}
+{while ($name==1)}
+{$name--}
+{/endwhile}
+</body>
+</html>

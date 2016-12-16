@@ -79,7 +79,7 @@ function CreateEmptyIndexHtml(string $dir)
     {
         if ($it->hasChildren()&&substr($it->getFilename(),0,1)!='.')
         {
-            file_put_contents($it->getRealPath().'/index.html','');
+            file_put_contents($it->getRealPath().'/template.html','');
             $this->dirList($it->getRealPath());
         }
         $it->next();

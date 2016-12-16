@@ -34,7 +34,6 @@ class MiloCore
         {
             $GLOBALS['StartUseMemory'] = memory_get_usage();
         }
-
         if(!is_dir(WEB_PATH))
         {
             mkdir(WEB_PATH, 0777, true);
@@ -42,8 +41,12 @@ class MiloCore
             mkdir(WEB_PATH.$conf['MODEL'], 0777, true);
             mkdir(WEB_PATH.$conf['VIEW'], 0777, true);
             mkdir(WEB_PATH.$conf['VIEW'].'/Cache', 0777, true);
+            mkdir(WEB_PATH.$conf['VIEW'].'/Cache/PHP/', 0777, true);
+            mkdir(WEB_PATH.$conf['VIEW'].'/Cache/HTML/', 0777, true);
             mkdir(WEB_PATH.$conf['VIEW'].'/Templates', 0777, true);
             mkdir(WEB_PATH.$conf['CONTROLLER'], 0777, true);
+            $string='<?php'.PHP_EOL.'namespace '.APP_NAME.'\\Controller;'.PHP_EOL.'use Core\Libs\BaseController;'.PHP_EOL.'class IndexController extends BaseController'.PHP_EOL.'{'.PHP_EOL.'   public function index()'.PHP_EOL.'   {'.PHP_EOL.'      echo \'hello world\';'.PHP_EOL.'   }'.PHP_EOL.'}';
+            file_put_contents(WEB_PATH.$conf['CONTROLLER'].'/'.'IndexController.class.php',$string);
             mkdir(WEB_PATH.$conf['COMMON'], 0777, true);
             mkdir(WEB_PATH.$conf['COMMON'].'/Config', 0777, true);
             mkdir(WEB_PATH.$conf['RUNNING'], 0777, true);
@@ -116,6 +119,7 @@ class MiloCore
         defined('EXTEND') or define('EXTEND',ROOT_DIR.'/Extend/');
         defined('VENDOR') or define('VENDOR',ROOT_DIR.'/Vendor/');
         defined('EXT') or define('EXT','.class.php');
+        defined('CACHE') or define('CACHE',false);
         defined('CACHE_HTML') or define('CACHE_HTML',false);
         defined('CACHE_TIME') or define('CACHE_TIME',200);
         defined('ADMIN_SLD_NAME') or define('ADMIN_SLD_NAME',NULL);

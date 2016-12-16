@@ -17,13 +17,51 @@ class BaseController
         $route=Route::getInstance();
         $this->class=$route->getControl();
         $this->function=$route->getAction();
-        $this->cacheCheck(CACHE_TIME);
+        $this->cacheHTMLCheck(CACHE_TIME);
     }
     public function assign(string $name,$data)
     {
         $this->data[$name]=$data;
     }
     public function display(string $view)
+    {
+        $this->templatePHP($view);
+    }
+
+    /**
+     * @param string $view
+     */
+    private function templatePHP(string $view)
+    {
+        $file=WEB_PATH.'Views/Cache/PHP/'.md5($view).'.php';
+        $tp=Template::getInstance();
+        if ($this->data!=null)
+        {
+            extract($this->data);
+        }
+        if(CACHE)
+        {
+            if (!file_exists($file))
+            {
+                $tp->template($view);
+            }
+            else
+            {
+                $this->cachePHPCheck($view);
+                if (!file_exists($file))
+                {
+                    $tp->template($view);
+                }
+            }
+            $this->templateHtml($view);
+        }
+        else
+        {
+            $tp->template($view);
+            $this->templateHtml($view);
+        }
+    }
+    private function templateHtml(string $view)
     {
         if (CACHE_HTML)
         {
@@ -35,7 +73,7 @@ class BaseController
             {
                 extract($this->data);
             }
-            $file=WEB_PATH.'Views/Templates/'.$view;
+            $file=WEB_PATH.'Views/Cache/PHP/'.md5($view).'.php';
             if(file_exists($file))
             {
                 require_once $file.'';
@@ -45,7 +83,6 @@ class BaseController
                 PrintFm($view.' 模板不存在');
             }
         }
-
     }
     public function params():array
     {
@@ -53,12 +90,12 @@ class BaseController
         if($_SERVER['REQUEST_METHOD']=='GET')
         {
             $route=Route::getInstance();
-            return $params=$route->getParams();
+            $params=$route->getParams();
 
         }
         elseif($_SERVER['REQUEST_METHOD']=='POST')
         {
-            return $params=$_POST;
+            $params=$_POST;
         }
         if(MAGIC_GPC)
         {
@@ -68,7 +105,6 @@ class BaseController
         {
             return $this->filterParams($params);
         }
-
     }
     private function filterParams(array $params):array
     {
@@ -104,8 +140,8 @@ class BaseController
     private function createHtml(string $view)
     {
         $FName=md5($this->class.$this->function);
-        $cacheFile=WEB_PATH.'Views/Cache/'.$FName.'.html';
-        $file=WEB_PATH.'Views/Templates/'.$view;
+        $cacheFile=WEB_PATH.'Views/Cache/HTML/'.$FName.'.html';
+        $file=WEB_PATH.'Views/Cache/PHP/'.$view;
         if ($this->data!=null)
         {
             extract($this->data);
@@ -123,12 +159,33 @@ class BaseController
             GetError($view.' 模板不存在');
         }
     }
-    public function cacheCheck(int $cacheTime=200)
+    private function cacheHTMLCheck(int $cacheTime=200)
     {
         if(CACHE_HTML)
         {
             $FName=md5($this->class.$this->function);
-            $cacheFile=WEB_PATH.'Views/Cache/'.$FName.'.html';
+            $cacheFile=WEB_PATH.'Views/Cache/HTML/'.$FName.'.html';
+            if (is_file($cacheFile))
+            {
+                $aTime=fileatime($cacheFile);
+                if ((time()-$aTime)>$cacheTime)
+                {
+                    unlink($cacheFile);
+                }
+                else
+                {
+                    require_once $cacheFile.'';
+                    exit();
+                }
+            }
+        }
+    }
+    private function cachePHPCheck(string $view,int $cacheTime=200)
+    {
+        if(CACHE)
+        {
+            $view=md5($view).'.php';
+            $cacheFile=WEB_PATH.'Views/Cache/PHP/'.$view;
             if (is_file($cacheFile))
             {
                 $aTime=fileatime($cacheFile);

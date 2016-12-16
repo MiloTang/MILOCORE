@@ -6,11 +6,10 @@
  * Time: 23:10
  */
 namespace Home\Controller;
+use Core\libs\Template;
 use Core\Libs\ValidateCode;
 use Core\Libs\BaseController;
 use Home\Model\IndexModel;
-
-session_start();
 class IndexController extends BaseController
 {
 
@@ -121,6 +120,11 @@ class IndexController extends BaseController
         PrintFm($model->one());
         echo '<hr>';
         PrintFm($model->lists());
-
+    }
+    public function template()
+    {
+        $this->assign('name','2');
+        $this->assign('data',array('1'=>'a','2'=>'b'));
+        $this->display('template.html');
     }
 }
