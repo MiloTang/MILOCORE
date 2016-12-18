@@ -152,7 +152,8 @@
     <input type="button" value="显示内容" onclick="tt()">
     <input type="button" value="取消设置" onclick="isCancel()">
 <pre>
-
+<button onmouseover="this.style.color='red'" onmouseleave="this.style.color='black'">我会变色</button>
+<button onclick="showDate()">时间</button>
 </pre>
     <script type="text/javascript">
         //定义"改变颜色"的函数
@@ -197,6 +198,10 @@
         }
         function myFunction(){
             alert("页面加载完成");
+        }
+        function showDate() {
+            var date = new Date();
+           alert(date);
         }
     </script>
 
