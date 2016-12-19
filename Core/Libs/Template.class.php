@@ -32,7 +32,7 @@ class Template
         if (file_exists($file))
         {
             $contents=file_get_contents($file);
-            $pattern='/\{ *\$([a-zA-Z_].*) *\}/';
+            $pattern='/\{ *\$([a-zA-Z_].*) *\}/U';
             $contents=preg_replace($pattern,'<?php echo $$1; ?>',$contents);
             $pattern='/\{ *(while *\(.*\)|switch *\(.*\)|case .*|foreach *\(.*\)|for *\(.*\)|else|elseif *\(.*\)|if *\(.*\)) *\}/';
             $contents=preg_replace($pattern,'<?php $1: ?>',$contents);

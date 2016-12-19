@@ -197,9 +197,9 @@ class DataStructureController extends BaseController implements \Countable
                 $isDir=$it->getFilename();
                 if (substr($isDir,0,1)!='.')
                 {
-                    if(!is_file($dir.'/'.$isDir.'/index.html'))
+                    if(!is_file($dir.'/'.$isDir.'/javascript.html'))
                     {
-                        file_put_contents($dir.'/'.$isDir.'/index.html','');
+                        file_put_contents($dir.'/'.$isDir.'/javascript.html','');
                         echo 'here';
                     }
                     $this->fileIteratorDir($dir.'/'.$it->getFilename());
