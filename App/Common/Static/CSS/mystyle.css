@@ -1,5 +1,13 @@
+*{
+    margin: 0;padding: 0;
+}
+body{
+    font-size: 2rem;
+    width: 72%;
+    margin: 1rem auto;
+}
 .block{
-    border:1px solid #eee;
+    border:1px solid darkgray;
     width:12rem;
     height:12rem;
     line-height:12rem;
@@ -7,12 +15,18 @@
     background:#333366;
     color:red;
     float: left;
+    margin: 1rem;
 }
 a{
     font-size: 2rem;
 }
 div{
-    font-size: 3rem;
+    font-size: 2rem;
+}
+#text-center
+{
+    width: 100%;
+    text-align: center;
 }
 a:link{text-decoration:none ; color:white;}
 a:hover {text-decoration:none; color:red;}
