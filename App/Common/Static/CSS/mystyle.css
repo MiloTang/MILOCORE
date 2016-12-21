@@ -47,3 +47,24 @@ div{
 }
 a:link{text-decoration:none ; color:blue;}
 a:hover {text-decoration:none; color:red;}
+
+#nav
+{
+    width: 100%;
+    position:fixed;
+    left: 0rem;
+    bottom:0rem;
+    background: #cccccc;
+    z-index: 0;
+}
+h3
+{
+    color: #99CCFF;
+}
+#nav a
+{
+    display: inline-block;
+    border: 1px solid #cccccc;
+    font-size: 1rem;
+    margin: 0.5rem;
+}

@@ -18,7 +18,7 @@ class IndexController extends BaseController
           'html'=>$prefix.InUrl('/index/lists/art/html.html'),
           'html5'=>$prefix.InUrl('/index/lists/art/html5.html'),
           'css'=>$prefix.InUrl('/index/css.html'),
-          'css3'=>$prefix.InUrl('/index/lists/art/css3.html'),
+          'css3'=>$prefix.InUrl('/index/css3.html'),
           'ajax'=>$prefix.InUrl('/index/lists/art/ajax.html'),
           'php'=>$prefix.InUrl('/index/lists/art/php.html')
       );
@@ -48,5 +48,15 @@ class IndexController extends BaseController
       $this->assign('title',Route()->getAction());
       $this->assign('url',$url);
       $this->display('css.html');
+   }
+   public function css3()
+   {
+      $prefix='http://'.$_SERVER['HTTP_HOST'];
+      $url=array(
+          'index'=>$prefix.InUrl('/index/index.html')
+      );
+      $this->assign('title',Route()->getAction());
+      $this->assign('url',$url);
+      $this->display('css3.html');
    }
 }
