@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{$title}</title>
-    <link rel="stylesheet" type="text/css" href={$cssLink1}>
+    <title><?php echo $title; ?></title>
+    <link rel="stylesheet" type="text/css" href=<?php echo $cssLink1; ?>>
     <style type="text/css">
         h3
         {
@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-<div style="text-align: center;">{$title}例子</div>
+<div style="text-align: center;"><?php echo $title; ?>例子</div>
 <hr>
 <h3>id 和 class 选择器以及指定特定的HTML元素使用class。</h3>
 <pre>
@@ -207,7 +207,7 @@
     top:150px;
     }
 </pre>
-<div style="text-align: center"><a href={$url['index']}>返回主页</a> </div>
+<div style="text-align: center"><a href=<?php echo $url['index']; ?>>返回主页</a> </div>
 <div id="foot">
     <a href="index.html">首页</a>
     <a href="index.html">css</a>

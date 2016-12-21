@@ -3,8 +3,25 @@
 }
 body{
     font-size: 2rem;
-    width: 72%;
+    width: 80%;
     margin: 1rem auto;
+}
+.left
+{
+    width: 79%;
+    word-wrap: break-word;
+    background: #cccccc;
+    float: left;
+}
+.right
+{
+    background: #cccccc;
+    word-wrap: break-word;
+    float: right;
+    width: 20%;
+}
+.clear{
+    clear: both;
 }
 .block{
     border:1px solid darkgray;
@@ -28,5 +45,5 @@ div{
     width: 100%;
     text-align: center;
 }
-a:link{text-decoration:none ; color:white;}
+a:link{text-decoration:none ; color:blue;}
 a:hover {text-decoration:none; color:red;}
