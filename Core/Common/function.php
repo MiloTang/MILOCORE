@@ -21,9 +21,9 @@ function Route()
 {
     return \Core\libs\Route::getInstance();
 }
-function ValidateCode()
+function RandomImage()
 {
-    return \Core\Libs\ValidateCode::getInstance();
+    return \Core\Libs\RandomImage::getInstance();
 }
 function Template()
 {

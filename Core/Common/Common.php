@@ -100,3 +100,9 @@ function DirList(string $dir)
         $it->next();
     }
 }
+function UnicodeDecode($name)
+{
+    $json = '{"str":"'.$name.'"}';
+    $arr = json_decode($json,true);
+    return empty($arr)?'':$arr['str'];
+}

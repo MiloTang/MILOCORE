@@ -68,3 +68,9 @@ h3
     font-size: 1rem;
     margin: 0.5rem;
 }
+pre{
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}

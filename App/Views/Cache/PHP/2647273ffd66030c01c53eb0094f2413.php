@@ -194,7 +194,17 @@
 <div class="button button4">1234</div>
 <div class="button button5">1234</div>
 基础知识;进阶;在线工具;图书导航(包括简介);IT网站导航(包括简介);新技术的简介;代码实例;购物导航(商品简介);
+
+注意：required 属性适用于下面的 input 类型：text、search、url、tel、email、password、date pickers、number、checkbox、radio 和 file。
+<div id="new" style="color: red">
+
+</div>
+<div class="msg">刮开灰色部分看看，<a href="javascript:void(0)" onClick="window.location.reload()">再来一次</a></div>
+<div class="demo">
+    <canvas></canvas>
+</div>
 <div style="text-align: center;margin-bottom: 5rem"><a  href=<?php echo $url['index']; ?>>返回主页</a></div>
+
 
 <a name="bottom"></a>
 <div id="nav">
@@ -208,5 +218,84 @@
     <a href="#top">top</a>
     <a href="#bottom">bottom</a>
 </div>
+<script>
+    var bodyStyle = document.body.style;
+    bodyStyle.mozUserSelect = 'none';
+    bodyStyle.webkitUserSelect = 'none';
+    var img = new Image();
+    var canvas = document.querySelector('canvas');
+    canvas.style.backgroundColor='transparent';
+    canvas.style.position = 'absolute';
+    img.src = 'http://localhost/index/verifyCode';
+    img.addEventListener('load', function(e) {
+        var ctx;
+        var w = img.width,
+                h = img.height;
+        var offsetX = canvas.offsetLeft,
+                offsetY = canvas.offsetTop;
+        var mousedown = false;
+
+        function layer(ctx) {
+            ctx.fillStyle = 'gray';
+            ctx.fillRect(0, 0, w, h);
+        }
+
+        function eventDown(e){
+            e.preventDefault();
+            mousedown=true;
+        }
+
+        function eventUp(e){
+            e.preventDefault();
+            mousedown=false;
+        }
+
+        function eventMove(e){
+            e.preventDefault();
+            if(mousedown) {
+                if(e.changedTouches){
+                    e=e.changedTouches[e.changedTouches.length-1];
+                }
+                var x = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0,
+                        y = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;
+                with(ctx) {
+                    beginPath()
+                    arc(x, y, 10, 0, Math.PI * 2);
+                    fill();
+                }
+            }
+        }
+
+        canvas.width=w;
+        canvas.height=h;
+        canvas.style.backgroundImage='url('+img.src+')';
+        ctx=canvas.getContext('2d');
+        ctx.fillStyle='transparent';
+        ctx.fillRect(0, 0, w, h);
+        layer(ctx);
+        ctx.globalCompositeOperation = 'destination-out';
+        canvas.addEventListener('touchstart', eventDown);
+        canvas.addEventListener('touchend', eventUp);
+        canvas.addEventListener('touchmove', eventMove);
+        canvas.addEventListener('mousedown', eventDown);
+        canvas.addEventListener('mouseup', eventUp);
+        canvas.addEventListener('mousemove', eventMove);
+    });
+</script>
+<script type="text/javascript">
+    if(typeof(EventSource)!=="undefined")
+    {
+        var source=new EventSource("http://localhost/index/newMassage");
+        source.onmessage=function(event)
+        {
+            document.getElementById("new").innerHTML=event.data + "<br>";
+        };
+    }
+    else
+    {
+        document.getElementById("new").innerHTML='浏览器不支持';
+    }
+
+</script>
 </body>
 </html>
