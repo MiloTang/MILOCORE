@@ -8,6 +8,147 @@
 <style type="text/css">
 .demo{width:100%; margin: 0 0 0 43%;}
 .msg{text-align:center; height:32px; line-height:32px; font-weight:bold; margin-top:50px}
+.burst-12 {
+    background: black;
+    width: 20rem;
+    height: 20rem;
+    position: relative;
+    text-align: center;
+}
+.burst-12:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20rem;
+    width: 20rem;
+    background: gold;
+}
+.burst-12:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20rem;
+    width: 20rem;
+    background: greenyellow;
+}
+.burst-12:before {
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg);
+}
+.burst-12:after {
+    -webkit-transform: rotate(60deg);
+    -moz-transform: rotate(60deg);
+    -ms-transform: rotate(60deg);
+    -o-transform: rotate(60deg);
+    transform: rotate(60deg);
+}
+.cyl{
+    position: relative;
+    width: 20rem;
+    height: 20rem;
+    background-color: #333366;
+    border-radius: 50%;
+    margin-top: 20rem;
+    line-height: 20rem;
+}
+.circle1{
+    position: absolute;
+    width: 100px;
+    text-align: center;
+    border-radius: 100px 0 0 0;
+    height: 100px;
+    background-color: blueviolet;
+}
+.circle2{
+    margin-left: 100px;
+    position: absolute;
+    width: 100px;
+    line-height: 100px;
+    text-align: center;
+    border-radius: 0 100px 0 0 ;
+    height: 100px;
+    background-color: red;
+}
+.circle3{
+    position: absolute;
+    width: 100px;
+    line-height: 100px;
+    text-align: center;
+    margin: 100px 0 0 100px;
+    border-radius: 0 0 100px 0;
+    height: 100px;
+    background-color: bisque;
+}
+.circle4{
+    position: absolute;
+    width: 100px;
+    margin-top: 100px;
+    text-align: center;
+    border-radius: 0  0 0 100px;
+    height: 100px;
+    background-color: green;
+}
+.triangle-left {
+    position: relative;
+    width: 10rem;
+    height: 10rem;
+    border-top: 0 solid transparent;
+    border-right: 5px solid black;
+    border-bottom: 0 solid transparent;
+    z-index: 10;
+}
+.squareBig
+{
+    height: 30rem;
+    width: 30rem;
+    border: 10rem solid gainsboro;
+}
+.squareSmall
+{
+    display: inline-block;
+    height: 10rem;
+    width: 10rem;
+    background-color: #4CAF50;
+    margin: 1rem;
+}
+.yin-yang {
+    width: 96px;
+    height: 48px;
+    background: #eee;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px 2px 50px 2px;
+    border-radius: 100%;
+    position: relative;
+}
+.yin-yang:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background: #eee;
+    border: 18px solid black;
+    border-radius: 100%;
+    width: 12px;
+    height: 12px;
+}
+.yin-yang:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: red;
+    border: 18px solid #eee;
+    border-radius:100%;
+    width: 12px;
+    height: 12px;
+}
+
 </style>
     <script type="text/javascript" src="http://www.tb.com/App/Common/Static/JS/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="http://www.tb.com/App/Common/Static/JS/jQueryRotate.2.2.js"></script>
@@ -41,11 +182,39 @@
    </div>
     <div id="clientXY"></div>
    <div class="demo">
-       <div id="disk" style="width:20rem;height: 20rem; background-color: #333366; border-radius: 50%;margin-top: 20rem;text-align: center;line-height: 20rem">
-       <div id="startbtn">---></div>
+       <div id="disk" >
+       <div   class="cyl">
+           <div class="triangle-left"></div>
+       </div>
        </div>
    </div>
-<script type="text/javascript">
+   <div style="margin-top: 10rem" class="yin-yang">
+
+   </div>
+   <div id="startbtn">
+   <div class="circle1"></div>
+   <div class="circle2"></div>
+   <div class="circle3"></div>
+   <div class="circle4"></div>
+   </div>
+   <div style="background-color: #555555" >
+       <div class="squareSmall">
+       </div>
+       <div class="squareSmall">
+       </div>
+       <div class="squareSmall">
+       </div>
+       <div class="squareSmall">
+       </div>
+       <div class="squareSmall">
+       </div>
+       <div class="squareSmall">
+       </div>
+       <div class="squareSmall">
+       </div>
+   </div>
+
+   <script type="text/javascript">
     var XY=document.getElementById('clientXY');
     function showXY(event)
     {
