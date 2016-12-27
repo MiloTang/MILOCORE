@@ -12,13 +12,19 @@
  * 二维码生成
  * ＥＸＣＥＬ处理
  * 邮件发送
- *
+ * "phpoffice/phpexcel": "*",
+    "phpunit/phpunit": "*",
+    "endroid/qrcode": "*",
+    "nette/mail": "*",
+    "phpmailer/phpmailer": "^5.2",
+    "predis/predis": "*"
  */
-define('APP_NAME','WeiShop');
-define('DEBUG',true);
+echo phpinfo();
+//define('APP_NAME','WeiShop');
+//define('DEBUG',true);
 //define('URL_SECRET',true);
-require ('./Core/MiloCore.class.php');
-\Core\MiloCore::run();
+//require ('./Core/MiloCore.class.php');
+//\Core\MiloCore::run();
 
 
 
