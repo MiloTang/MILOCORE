@@ -19,12 +19,11 @@
     "phpmailer/phpmailer": "^5.2",
     "predis/predis": "*"
  */
-echo phpinfo();
-//define('APP_NAME','WeiShop');
-//define('DEBUG',true);
-//define('URL_SECRET',true);
-//require ('./Core/MiloCore.class.php');
-//\Core\MiloCore::run();
+define('APP_NAME','WeiShop');
+define('DEBUG',true);
+define('URL_SECRET',false);
+require ('./Core/MiloCore.class.php');
+\Core\MiloCore::run();
 
 
 

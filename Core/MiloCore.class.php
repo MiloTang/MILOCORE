@@ -7,7 +7,7 @@
  */
 
 namespace Core;
-use Core\libs\Route;
+use Core\Libs\Route;
 class MiloCore
 {
     private static $_classMap= array();
@@ -87,7 +87,8 @@ class MiloCore
         }
         else
         {
-            $class=ROOT_DIR.'/'.$class;
+			$class=ROOT_DIR.'/'.$class;
+			$class=str_replace('\\','/',$class);
             $file=$class.EXT;
             if(is_file($file))
             {

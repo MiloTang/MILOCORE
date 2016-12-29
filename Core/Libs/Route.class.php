@@ -5,7 +5,7 @@
  * Date: 10/28/2016
  * Time: 10:18 AM
  */
-namespace Core\libs;
+namespace Core\Libs;
 defined('CORE_PATH') or exit();
 class Route
 {
@@ -25,11 +25,11 @@ class Route
 
     }
     private function __construct()
-    {
-        if(isset($_SERVER['REQUEST_URI'])&&$_SERVER['REQUEST_URI'] != '/')
+    {	
+		if(isset($_SERVER['REQUEST_URI'])&&$_SERVER['REQUEST_URI']!= '/')
         {
-            $uri=OutUrl(trim($_SERVER['REQUEST_URI'],'/'));
-            $uriArr=explode('/',trim($uri,'/'));
+			$uri=OutUrl(trim($_SERVER['REQUEST_URI'],'/'));
+            $uriArr=explode('/',trim($uri,'/')); 
             if(isset($uriArr[0])&&$uriArr[0]!='')
             {
                 $this->control = $uriArr[0];
